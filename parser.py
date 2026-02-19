@@ -50,6 +50,8 @@ class Parser:
 
 
     def expr(self):
+        # if  self.current_tok.matches(TT_KEYWORD, 'FOR'):
+        #     return self.for_expr()
         return self.bin_op(self.term, (TT_PLUS, TT_MINUS))
 
     def bin_op(self, func, ops):

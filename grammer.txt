@@ -6,4 +6,5 @@ power   : factor POW factor
 
 term    : power ((MUL|DIV) power)*
 
-expr    : (term (PLUS|MIUNUS) term)*
+expr    : (term (PLUS|MINUS) term)*
+        : IDENTIFIER EQ expr

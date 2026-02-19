@@ -20,7 +20,10 @@ class Interpreter:
         right = res.register(self.visit(node.right_node))
         
         if res.error: return res
-        
+
+        result = None
+        error = None
+
         if node.op_tok.type == TT_PLUS:
             result, error = left.added_to(right)
         elif node.op_tok.type == TT_MINUS:
@@ -40,15 +43,13 @@ class Interpreter:
         num = res.register(self.visit(node.node))
         if res.error: return res
 
-        error = None
-
         if node.op_tok.type == TT_MINUS:
             num, error = Number(-num.value).set_pos(node.op_tok.pos_start, num.pos_end)
             if error: return res.failure(error)
             return res.success(num)
         elif node.op_tok.type == TT_PLUS:
             return num.set_pos(node.op_tok.pos_start, num.pos_end)
-        
+        raise Exception(f'did not return as expected in visit_{type(node).__name__}')
 
 class RTResult:
     def __init__(self):
